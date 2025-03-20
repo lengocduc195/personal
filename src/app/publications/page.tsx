@@ -72,8 +72,8 @@ export default function Publications() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-2">Publications</h1>
-      <p className="text-gray-600 mb-8">
-        Academic and research publications I've authored or co-authored.
+      <p className="text-lg text-gray-600 mb-12">
+        Here&apos;s a collection of my research publications and academic work.
       </p>
 
       <SearchFilter

@@ -4,33 +4,47 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, useEffect } from 'react';
 import { Publication } from '@/app/api/publications';
+import { Project } from '@/app/api/projects';
 import DoiLink from '@/app/components/DoiLink';
 
 export default function Home() {
   const [recentPublications, setRecentPublications] = useState<Publication[]>([]);
+  const [featuredProjects, setFeaturedProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function loadRecentPublications() {
+    async function loadData() {
       try {
-        const response = await fetch('/api/publications');
-        if (!response.ok) {
-          throw new Error('Failed to fetch publications');
+        const [publicationsResponse, projectsResponse] = await Promise.all([
+          fetch('/api/publications'),
+          fetch('/api/projects')
+        ]);
+
+        if (!publicationsResponse.ok || !projectsResponse.ok) {
+          throw new Error('Failed to fetch data');
         }
-        const data = await response.json();
-        // Sort by year in descending order and take the 3 most recent
-        const recent = data
+
+        const [publicationsData, projectsData] = await Promise.all([
+          publicationsResponse.json(),
+          projectsResponse.json()
+        ]);
+
+        // Sort publications by year and take the 3 most recent
+        const recent = publicationsData
           .sort((a: Publication, b: Publication) => b.year - a.year)
           .slice(0, 3);
         setRecentPublications(recent);
+
+        // Take the first 3 projects as featured
+        setFeaturedProjects(projectsData.slice(0, 3));
       } catch (error) {
-        console.error('Error loading recent publications:', error);
+        console.error('Error loading data:', error);
       } finally {
         setLoading(false);
       }
     }
 
-    loadRecentPublications();
+    loadData();
   }, []);
 
   if (loading) {
@@ -43,10 +57,13 @@ export default function Home() {
       <section className="flex flex-col lg:flex-row items-center justify-between gap-10 py-10">
         <div className="lg:w-1/2 space-y-6">
           <h1 className="text-4xl lg:text-6xl font-bold text-gray-900">
-            Hello, I'm <span className="text-primary">Duc Le</span>
+            Hello, I&apos;m <span className="text-primary">Duc Le</span>
           </h1>
-          <p className="text-xl text-gray-600">
-            Welcome to my portfolio. I'm passionate about creating innovative solutions and sharing knowledge through research.
+          <p className="text-xl text-gray-600 mb-8">
+            I&apos;m a passionate researcher and developer specializing in machine learning and computer vision.
+          </p>
+          <p className="text-lg text-gray-600 mb-12">
+            I&apos;m dedicated to advancing the field of AI and making it more accessible to everyone.
           </p>
           <div className="flex gap-4">
             <Link 
@@ -71,8 +88,8 @@ export default function Home() {
               width={256}
               height={256}
               className="object-cover"
-          priority
-        />
+              priority
+            />
           </div>
         </div>
       </section>
@@ -81,13 +98,13 @@ export default function Home() {
       <section className="py-10">
         <h2 className="text-3xl font-bold text-center mb-10">Featured Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
-            <Link href={`/projects/${i}`} key={i}>
+          {featuredProjects.map((project) => (
+            <Link href={`/projects/${project.id}`} key={project.id}>
               <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="relative h-48 w-full">
                   <Image
-                    src={`/images/project-${i}.jpg`}
-                    alt={`Project ${i}`}
+                    src={project.image}
+                    alt={project.title}
                     width={500}
                     height={300}
                     className="object-cover w-full h-full"
@@ -95,16 +112,18 @@ export default function Home() {
                 </div>
                 <div className="p-6">
                   <div className="flex flex-wrap gap-2 mb-3">
-                    <span className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full">
-                      React
-                    </span>
-                    <span className="px-3 py-1 bg-green-100 text-green-800 text-xs font-medium rounded-full">
-                      AI
-                    </span>
+                    {project.technologies.map((tech) => (
+                      <span 
+                        key={tech}
+                        className="px-3 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded-full"
+                      >
+                        {tech}
+                      </span>
+                    ))}
                   </div>
-                  <h3 className="text-xl font-semibold mb-2">Project Title {i}</h3>
+                  <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                   <p className="text-gray-600">
-                    A brief description of the project, its goals, and the technologies used.
+                    {project.description}
                   </p>
                 </div>
               </div>

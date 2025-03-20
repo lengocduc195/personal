@@ -79,11 +79,10 @@ export default function About() {
           throw new Error('Failed to fetch data');
         }
 
-        const [aboutData, publicationsData, projectsData, statsData] = await Promise.all([
+        const [aboutData, publicationsData, projectsData] = await Promise.all([
           aboutResponse.json(),
           publicationsResponse.json(),
-          projectsResponse.json(),
-          statsResponse.json()
+          projectsResponse.json()
         ]);
 
         setAboutData(aboutData);
@@ -215,24 +214,32 @@ export default function About() {
               
               <div className="space-y-3">
                 <a
-                  href={aboutData.cv.url}
-                  download={aboutData.cv.filename}
+                  href={aboutData.resume.url}
                   className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors w-full justify-center"
                   target="_blank"
                   rel="noopener noreferrer"
-                >
-                  <FaFileAlt className="mr-2" />
-                  Download CV
-                </a>
-                <a
-                  href={aboutData.resume.url}
-                  download={aboutData.resume.filename}
-                  className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors w-full justify-center"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const fullUrl = window.location.origin + aboutData.resume.url;
+                    window.open(fullUrl, '_blank');
+                  }}
                 >
                   <FaFileAlt className="mr-2" />
                   Download Resume
+                </a>
+                <a
+                  href={aboutData.cv.url}
+                  className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors w-full justify-center"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const fullUrl = window.location.origin + aboutData.cv.url;
+                    window.open(fullUrl, '_blank');
+                  }}
+                >
+                  <FaFileAlt className="mr-2" />
+                  Download CV
                 </a>
               </div>
             </div>

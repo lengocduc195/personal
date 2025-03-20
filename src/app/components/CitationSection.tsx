@@ -8,22 +8,15 @@ interface CitationSectionProps {
 
 export default function CitationSection({ citationFormat }: CitationSectionProps) {
   const [copyStatus, setCopyStatus] = useState('');
+  const [copied, setCopied] = useState(false);
 
-  const handleCopyClick = () => {
+  const handleCopy = async () => {
     try {
-      // Use a fallback method for clipboard copying
-      const textArea = document.createElement('textarea');
-      textArea.value = citationFormat;
-      document.body.appendChild(textArea);
-      textArea.select();
-      document.execCommand('copy');
-      document.body.removeChild(textArea);
-      
-      setCopyStatus('Copied!');
-      setTimeout(() => setCopyStatus(''), 2000);
-    } catch (err) {
-      setCopyStatus('Failed to copy');
-      setTimeout(() => setCopyStatus(''), 2000);
+      await navigator.clipboard.writeText(citationFormat);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      console.error('Failed to copy citation');
     }
   };
 
@@ -37,9 +30,9 @@ export default function CitationSection({ citationFormat }: CitationSectionProps
       </div>
       <button 
         className="mt-4 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary/90 transition-colors"
-        onClick={handleCopyClick}
+        onClick={handleCopy}
       >
-        {copyStatus || 'Copy Citation'}
+        {copied ? 'Copied!' : 'Copy Citation'}
       </button>
     </div>
   );

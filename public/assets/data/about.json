@@ -14,11 +14,11 @@
     "orcid": "https://orcid.org/0000-0000-0000-0000"
   },
   "cv": {
-    "url": "/assets/cv/Duc_Le_CV-14022025.pdf",
+    "url": "/assets/cv/Duc_Le_CV.pdf",
     "filename": "Duc_Le_CV.pdf"
   },
   "resume": {
-    "url": "/assets/cv/Duc_Le_resume-14022025.pdf",
+    "url": "/assets/cv/Duc_Le_resume.pdf",
     "filename": "Duc_Le_resume.pdf"
   },
   "education": [
@@ -27,12 +27,6 @@
       "school": "University Name",
       "year": "2012-2016",
       "description": "Focus on software engineering and algorithms"
-    },
-    {
-      "degree": "Ph.D. in Computer Science",
-      "school": "University Name",
-      "year": "2020-Present",
-      "description": "Thesis: 'Your Thesis Title'"
     }
   ],
   "experience": [
