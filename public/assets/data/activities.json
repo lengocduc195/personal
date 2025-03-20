@@ -1,0 +1,38 @@
+{
+  "professional": [
+    {
+      "title": "Conference Organizer",
+      "organization": "International Conference on Computer Vision",
+      "year": "2023",
+      "description": "Organized the main conference and workshops"
+    },
+    {
+      "title": "Program Committee Member",
+      "organization": "IEEE Conference on Computer Vision and Pattern Recognition",
+      "year": "2022",
+      "description": "Reviewed papers in computer vision and deep learning"
+    }
+  ],
+  "volunteer": [
+    {
+      "title": "Mentor",
+      "organization": "AI Research Community",
+      "year": "2023",
+      "description": "Mentored junior researchers in machine learning projects"
+    },
+    {
+      "title": "Workshop Instructor",
+      "organization": "Local Tech Community",
+      "year": "2022",
+      "description": "Taught workshops on deep learning fundamentals"
+    }
+  ],
+  "hobby": [
+    {
+      "title": "Mentor",
+      "organization": "AI Research Community",
+      "year": "2023",
+      "description": "Mentored junior researchers in machine learning projects"
+    }
+  ]
+} 

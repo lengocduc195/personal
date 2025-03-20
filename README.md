@@ -1,106 +1,131 @@
 # Personal Portfolio Website
 
-A modern portfolio website built with Next.js and Tailwind CSS to showcase your projects, publications, and professional information.
+A modern, responsive personal portfolio website built with Next.js, TypeScript, and Tailwind CSS. This portfolio showcases professional information, projects, publications, and activities in a clean and organized manner.
 
 ## Features
 
-- **Responsive Design**: Looks great on all devices from mobile to desktop
-- **Navigation Bar**: Easy navigation between different sections of the portfolio
-- **About Page**: Section for personal information, education, experience, and skills
-- **Projects Page**: Showcase your projects with detailed individual project pages
-- **Publications Page**: Display your research publications with detailed individual publication pages
-- **Social Activity Page**: Highlight your community involvement and social media presence
-- **Modern UI**: Clean, professional design with Tailwind CSS
-- **Tag System**: Each project and publication has tags to categorize and highlight topics and technologies
+- 🎨 Modern and responsive design
+- 📱 Mobile-friendly interface
+- 🚀 Fast page loads with Next.js
+- 📊 View tracking and statistics
+- 📚 Dynamic content loading from JSON files
+- 🔍 Search and filter functionality for projects and publications
+- 📝 Blog section with markdown support
+- 🔗 Social media integration
+- 📄 CV and Resume download options
+- 🌐 Multi-language support (English and Vietnamese)
+
+## Tech Stack
+
+- **Framework**: Next.js 14
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Icons**: React Icons
+- **Data Management**: JSON files
+- **Image Optimization**: Next.js Image component
+- **Deployment**: Vercel
+
+## Prerequisites
+
+- Node.js 18.x or later
+- npm or yarn package manager
+- Git
 
 ## Getting Started
 
-### Prerequisites
-
-- Node.js 18.0 or later
-- npm or yarn
-
-### Installation
-
 1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/personal-portfolio.git
-   cd personal-portfolio
+   ```bash
+   git clone https://github.com/yourusername/portfolio.git
+   cd portfolio
    ```
 
-2. Install the dependencies:
-   ```
+2. Install dependencies:
+   ```bash
    npm install
    # or
    yarn install
    ```
 
-3. Run the development server:
-   ```
+3. Create the required data files:
+   - `public/assets/data/about.json`
+   - `public/assets/data/projects.json`
+   - `public/assets/data/publications.json`
+   - `public/assets/data/activities.json`
+   - `public/assets/data/stats.json`
+
+4. Add your profile image:
+   - Place your profile image at `public/images/profile.jpg`
+
+5. Add your CV and Resume:
+   - Place your CV at `public/assets/cv/Duc_Le_CV-14022025.pdf`
+   - Place your Resume at `public/assets/cv/Duc_Le_resume-14022025.pdf`
+
+6. Run the development server:
+   ```bash
    npm run dev
    # or
    yarn dev
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
+7. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Project Structure
+
+```
+portfolio/
+├── public/
+│   ├── assets/
+│   │   ├── data/
+│   │   │   ├── about.json
+│   │   │   ├── projects.json
+│   │   │   ├── publications.json
+│   │   │   ├── activities.json
+│   │   │   └── stats.json
+│   │   └── cv/
+│   │       ├── Duc_Le_CV-14022025.pdf
+│   │       └── Duc_Le_resume-14022025.pdf
+│   └── images/
+│       └── profile.jpg
+├── src/
+│   ├── app/
+│   │   ├── about/
+│   │   ├── blog/
+│   │   ├── projects/
+│   │   ├── publications/
+│   │   ├── social/
+│   │   └── api/
+│   └── components/
+└── README.md
+```
 
 ## Customization
 
-### Personal Information
-
-1. Update your personal information in the following files:
-   - `src/app/page.tsx` - Home page content
-   - `src/app/about/page.tsx` - About page content
-   - `src/app/social/page.tsx` - Social media links
-
-2. Replace placeholder images in `public/images/` with your own images.
-
-### Projects
-
-1. Add your projects to the projects array in `src/data/placeholder-data.ts`.
-2. For each project, provide:
-   - Title
-   - Description
-   - Full description
-   - Tags/categories
-   - Image
-   - Links to demo, GitHub repository, etc.
-
-### Publications
-
-1. Add your publications to the publications array in `src/data/placeholder-data.ts`.
-2. For each publication, provide:
-   - Title
-   - Authors
-   - Venue and year
-   - Abstract
-   - Full text
-   - Tags/categories
-   - DOI and links
-   - Citation format
+1. Update personal information in `public/assets/data/about.json`
+2. Add your projects in `public/assets/data/projects.json`
+3. Add your publications in `public/assets/data/publications.json`
+4. Add your activities in `public/assets/data/activities.json`
+5. Customize the theme colors in `tailwind.config.js`
 
 ## Deployment
 
-This portfolio is designed to be easily deployed to GitHub Pages or any other hosting service.
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Deploy your site
 
-### GitHub Pages Deployment
+## Contributing
 
-1. Create a repository on GitHub.
-2. Push your code to the repository.
-3. Set up GitHub Pages in the repository settings.
-4. Configure the build and deployment settings for Next.js.
-
-## Technologies Used
-
-- Next.js - React framework for building the application
-- Tailwind CSS - Utility-first CSS framework for styling
-- TypeScript - Type-safe JavaScript
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Acknowledgments
+## Contact
 
-- Next.js team for the amazing framework
-- Tailwind CSS team for the styling utilities
+Your Name - [@yourtwitter](https://twitter.com/yourtwitter) - email@example.com
+
+Project Link: [https://github.com/yourusername/portfolio](https://github.com/yourusername/portfolio)

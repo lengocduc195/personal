@@ -1,161 +1,344 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaDownload, FaFileAlt, FaResearchgate, FaGoogle, FaOrcid } from 'react-icons/fa';
+
+interface AboutData {
+  name: string;
+  title: string;
+  bio: string;
+  image: string;
+  location: string;
+  email: string;
+  social: {
+    github: string;
+    linkedin: string;
+    twitter: string;
+    researchgate?: string;
+    googleScholar?: string;
+    orcid?: string;
+  };
+  cv: {
+    url: string;
+    filename: string;
+  };
+  resume: {
+    url: string;
+    filename: string;
+  };
+  education: Array<{
+    degree: string;
+    school: string;
+    year: string;
+    description: string;
+  }>;
+  experience: Array<{
+    title: string;
+    company: string;
+    period: string;
+    description: string;
+  }>;
+  technologyCategories: {
+    programmingLanguages: string[];
+    frameworksAndLibraries: string[];
+  };
+}
+
+interface Publication {
+  tags: string[];
+}
+
+interface Project {
+  technologies: string[];
+}
 
 export default function About() {
+  const [aboutData, setAboutData] = useState<AboutData | null>(null);
+  const [publications, setPublications] = useState<Publication[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const [aboutResponse, publicationsResponse, projectsResponse, statsResponse] = await Promise.all([
+          fetch('/assets/data/about.json'),
+          fetch('/api/publications'),
+          fetch('/api/projects'),
+          fetch('/api/views', { method: 'POST' })
+        ]);
+
+        if (!aboutResponse.ok || !publicationsResponse.ok || !projectsResponse.ok || !statsResponse.ok) {
+          throw new Error('Failed to fetch data');
+        }
+
+        const [aboutData, publicationsData, projectsData, statsData] = await Promise.all([
+          aboutResponse.json(),
+          publicationsResponse.json(),
+          projectsResponse.json(),
+          statsResponse.json()
+        ]);
+
+        setAboutData(aboutData);
+        setPublications(publicationsData);
+        setProjects(projectsData);
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, []);
+
+  // Extract unique tags and technologies
+  const researchAreas = Array.from(new Set(publications.flatMap(pub => pub.tags))).sort();
+  const technologies = Array.from(new Set(projects.flatMap(proj => proj.technologies))).sort();
+
+  // Categorize technologies using the predefined categories
+  const programmingLanguages = technologies.filter(tech => 
+    aboutData?.technologyCategories.programmingLanguages.includes(tech)
+  );
+  const frameworksAndLibraries = technologies.filter(tech => 
+    aboutData?.technologyCategories.frameworksAndLibraries.includes(tech)
+  );
+  const toolsAndTechnologies = technologies.filter(tech => 
+    !programmingLanguages.includes(tech) && !frameworksAndLibraries.includes(tech)
+  );
+
+  // Safe fallback during server/client hydration mismatch
+  if (!mounted) {
+    return null;
+  }
+
+  if (loading) {
+    return <div className="container mx-auto px-4 py-8 text-center">Loading...</div>;
+  }
+
+  if (!aboutData) {
+    return <div className="container mx-auto px-4 py-8 text-center">Error loading data</div>;
+  }
+
   return (
-    <div className="max-w-4xl mx-auto">
-      <h1 className="text-3xl font-bold mb-8 text-center">About Me</h1>
-      
-      <div className="flex flex-col md:flex-row gap-10 mb-16">
-        <div className="md:w-1/3 flex justify-center">
-          <div className="relative w-64 h-64 rounded-lg overflow-hidden">
-            <Image 
-              src="/images/profile-placeholder.jpg" 
-              alt="Profile" 
-              fill
-              className="object-cover"
-            />
+    <div className="container mx-auto px-4 py-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="flex flex-col md:flex-row gap-8 items-start">
+          <div className="w-full md:w-1/3">
+            <div className="relative w-48 h-48 mx-auto mb-6">
+              <Image
+                src={aboutData.image}
+                alt={aboutData.name}
+                fill
+                className="rounded-full object-cover"
+                sizes="(max-width: 768px) 100vw, 192px"
+                priority
+              />
+            </div>
+            
+            <div className="text-center">
+              <h1 className="text-2xl font-bold mb-2">{aboutData.name}</h1>
+              <p className="text-gray-600 mb-4">{aboutData.title}</p>
+              <p className="text-gray-600 mb-6">{aboutData.location}</p>
+              
+              <div className="flex justify-center space-x-4 mb-6">
+                <Link 
+                  href={aboutData.social.github} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  <FaGithub size={24} />
+                </Link>
+                <Link 
+                  href={aboutData.social.linkedin} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  <FaLinkedin size={24} />
+                </Link>
+                <Link 
+                  href={aboutData.social.twitter} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  <FaTwitter size={24} />
+                </Link>
+                {aboutData.social.researchgate && (
+                  <Link 
+                    href={aboutData.social.researchgate} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-gray-900"
+                  >
+                    <FaResearchgate size={24} />
+                  </Link>
+                )}
+                {aboutData.social.googleScholar && (
+                  <Link 
+                    href={aboutData.social.googleScholar} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-gray-900"
+                  >
+                    <FaGoogle size={24} />
+                  </Link>
+                )}
+                {aboutData.social.orcid && (
+                  <Link 
+                    href={aboutData.social.orcid} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-gray-600 hover:text-gray-900"
+                  >
+                    <FaOrcid size={24} />
+                  </Link>
+                )}
+              </div>
+              
+              <a 
+                href={`mailto:${aboutData.email}`}
+                className="inline-flex items-center text-gray-600 hover:text-gray-900 mb-6"
+              >
+                <FaEnvelope className="mr-2" />
+                {aboutData.email}
+              </a>
+              
+              <div className="space-y-3">
+                <a
+                  href={aboutData.cv.url}
+                  download={aboutData.cv.filename}
+                  className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors w-full justify-center"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaFileAlt className="mr-2" />
+                  Download CV
+                </a>
+                <a
+                  href={aboutData.resume.url}
+                  download={aboutData.resume.filename}
+                  className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors w-full justify-center"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <FaFileAlt className="mr-2" />
+                  Download Resume
+                </a>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="md:w-2/3">
-          <p className="text-lg mb-4">
-            Hello! I'm <strong>Your Name</strong>, a passionate researcher and developer specializing in 
-            [your specialization areas]. With a background in [your background], I am dedicated to 
-            [your mission or purpose].
-          </p>
-          <p className="text-lg mb-4">
-            My research interests include [research interest 1], [research interest 2], and 
-            [research interest 3]. I am particularly excited about the intersection of 
-            [field 1] and [field 2], where I believe significant innovations can occur.
-          </p>
-          <p className="text-lg">
-            When I'm not coding or researching, you can find me [hobby 1], [hobby 2], or 
-            [hobby 3].
-          </p>
+          
+          <div className="w-full md:w-2/3">
+            <div className="prose max-w-none mb-8">
+              {aboutData.bio.split('\n').map((paragraph, index) => (
+                <p key={index} className="mb-4">{paragraph}</p>
+              ))}
+            </div>
+
+            {/* Education Section */}
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold mb-4">Education</h2>
+              <div className="space-y-4">
+                {aboutData.education.map((edu, index) => (
+                  <div key={index} className="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 className="text-xl font-semibold">{edu.degree}</h3>
+                    <p className="text-gray-600">{edu.school}</p>
+                    <p className="text-gray-500">{edu.year}</p>
+                    <p className="mt-2">{edu.description}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Experience Section */}
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold mb-4">Experience</h2>
+              <div className="space-y-4">
+                {aboutData.experience.map((exp, index) => (
+                  <div key={index} className="bg-white p-4 rounded-lg shadow-sm">
+                    <h3 className="text-xl font-semibold">{exp.title}</h3>
+                    <p className="text-gray-600">{exp.company}</p>
+                    <p className="text-gray-500">{exp.period}</p>
+                    <p className="mt-2">{exp.description}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            {/* Research Areas Section */}
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold mb-4">Research Areas</h2>
+              <div className="flex flex-wrap gap-2">
+                {researchAreas.map((area) => (
+                  <span 
+                    key={area}
+                    className="px-3 py-1 bg-purple-100 text-purple-800 text-sm font-medium rounded-full"
+                  >
+                    {area}
+                  </span>
+                ))}
+              </div>
+            </section>
+
+            {/* Skills Sections */}
+            <section className="mb-8">
+              <h2 className="text-2xl font-bold mb-4">Skills</h2>
+              
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-2">Programming Languages</h3>
+                <div className="flex flex-wrap gap-2">
+                  {programmingLanguages.map((lang) => (
+                    <span 
+                      key={lang}
+                      className="px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full"
+                    >
+                      {lang}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-2">Frameworks & Libraries</h3>
+                <div className="flex flex-wrap gap-2">
+                  {frameworksAndLibraries.map((framework) => (
+                    <span 
+                      key={framework}
+                      className="px-3 py-1 bg-green-100 text-green-800 text-sm font-medium rounded-full"
+                    >
+                      {framework}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-2">Tools & Technologies</h3>
+                <div className="flex flex-wrap gap-2">
+                  {toolsAndTechnologies.map((tool) => (
+                    <span 
+                      key={tool}
+                      className="px-3 py-1 bg-yellow-100 text-yellow-800 text-sm font-medium rounded-full"
+                    >
+                      {tool}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </section>
+          </div>
         </div>
       </div>
-
-      {/* Education Section */}
-      <section className="mb-16">
-        <h2 className="text-2xl font-bold mb-6">Education</h2>
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold">Ph.D. in Computer Science</h3>
-            <p className="text-gray-600">University Name, 2020-Present</p>
-            <p className="mt-2">Thesis: "Your Thesis Title"</p>
-            <p className="mt-1">Advisor: Professor Name</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold">M.S. in Computer Science</h3>
-            <p className="text-gray-600">University Name, 2018-2020</p>
-            <p className="mt-2">Thesis: "Your Thesis Title"</p>
-            <p className="mt-1">GPA: 4.0/4.0</p>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold">B.S. in Computer Science</h3>
-            <p className="text-gray-600">University Name, 2014-2018</p>
-            <p className="mt-2">Minor: Mathematics</p>
-            <p className="mt-1">GPA: 3.9/4.0</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Experience Section */}
-      <section className="mb-16">
-        <h2 className="text-2xl font-bold mb-6">Experience</h2>
-        <div className="space-y-6">
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold">Research Assistant</h3>
-            <p className="text-gray-600">University Lab Name, 2020-Present</p>
-            <ul className="mt-2 list-disc list-inside">
-              <li>Conducted research on [research topic]</li>
-              <li>Published [number] papers in top-tier conferences and journals</li>
-              <li>Developed [technology/system] that improved [metric] by [percentage]</li>
-            </ul>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold">Software Engineering Intern</h3>
-            <p className="text-gray-600">Company Name, Summer 2019</p>
-            <ul className="mt-2 list-disc list-inside">
-              <li>Developed features for [product/service]</li>
-              <li>Collaborated with a team of [number] engineers</li>
-              <li>Utilized [technologies/frameworks]</li>
-            </ul>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold">Teaching Assistant</h3>
-            <p className="text-gray-600">University Name, 2018-2020</p>
-            <ul className="mt-2 list-disc list-inside">
-              <li>Assisted in teaching [course name]</li>
-              <li>Held office hours and graded assignments</li>
-              <li>Received excellent feedback from students</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section className="mb-16">
-        <h2 className="text-2xl font-bold mb-6">Skills</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4">Programming Languages</h3>
-            <div className="flex flex-wrap gap-2">
-              {['Python', 'Java', 'C++', 'JavaScript', 'TypeScript'].map((skill) => (
-                <span key={skill} className="px-3 py-1 bg-gray-100 rounded-full">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4">Frameworks & Libraries</h3>
-            <div className="flex flex-wrap gap-2">
-              {['TensorFlow', 'PyTorch', 'React', 'Next.js', 'Node.js'].map((skill) => (
-                <span key={skill} className="px-3 py-1 bg-gray-100 rounded-full">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4">Research Areas</h3>
-            <div className="flex flex-wrap gap-2">
-              {['Machine Learning', 'Computer Vision', 'Natural Language Processing', 'Reinforcement Learning'].map((skill) => (
-                <span key={skill} className="px-3 py-1 bg-gray-100 rounded-full">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-          <div className="bg-white p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-4">Tools & Technologies</h3>
-            <div className="flex flex-wrap gap-2">
-              {['Git', 'Docker', 'AWS', 'GCP', 'Linux'].map((skill) => (
-                <span key={skill} className="px-3 py-1 bg-gray-100 rounded-full">
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CV/Resume Section */}
-      <section>
-        <h2 className="text-2xl font-bold mb-6">Curriculum Vitae</h2>
-        <div className="bg-white p-6 rounded-lg shadow-md text-center">
-          <p className="text-lg mb-4">
-            You can download my full CV/resume using the button below:
-          </p>
-          <a 
-            href="/resume.pdf"
-            download
-            className="inline-block px-6 py-3 bg-primary text-white font-medium rounded-md hover:bg-primary/90 transition-colors"
-          >
-            Download CV/Resume
-          </a>
-        </div>
-      </section>
     </div>
   );
 } 

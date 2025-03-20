@@ -1,61 +1,11 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { getProjectById } from '@/app/api/projects';
 
-// This would typically come from a database or API
-const projects = [
-  {
-    id: 1,
-    title: "AI-Powered Image Recognition",
-    description: "A deep learning model for recognizing objects in images with high accuracy using convolutional neural networks.",
-    fullDescription: `
-      This project implements a state-of-the-art convolutional neural network for image recognition tasks. The model is trained on a large dataset of labeled images and can recognize objects across multiple categories with high accuracy.
-      
-      The architecture uses a combination of convolutional layers, pooling layers, and fully connected layers to extract features from input images and classify them into predefined categories. Transfer learning techniques were applied by fine-tuning a pre-trained model on custom datasets to improve performance.
-      
-      Key features of this project include:
-      - Real-time object detection with bounding boxes
-      - Multi-class classification with confidence scores
-      - Web interface for uploading and processing images
-      - REST API for integration with other applications
-    `,
-    image: "/images/project-1.jpg",
-    tags: ["Deep Learning", "Computer Vision", "TensorFlow"],
-    demoUrl: "https://demo-url-1.com",
-    githubUrl: "https://github.com/yourusername/image-recognition",
-    technologies: ["Python", "TensorFlow", "Keras", "OpenCV", "Flask"],
-    date: "January 2023",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
-  },
-  {
-    id: 2,
-    title: "Recommendation System",
-    description: "A personalized recommendation system for products using collaborative filtering and content-based approaches.",
-    fullDescription: `
-      This recommendation system combines collaborative filtering and content-based approaches to provide personalized product recommendations to users. The system analyzes user behavior, preferences, and product attributes to suggest items that users are likely to be interested in.
-      
-      The collaborative filtering component identifies patterns in user behavior and recommends products based on the preferences of similar users. The content-based component analyzes product attributes and recommends items similar to those the user has shown interest in previously.
-      
-      Key features of this project include:
-      - Hybrid recommendation approach (collaborative + content-based)
-      - User similarity metrics based on purchase history
-      - Product attribute analysis using NLP techniques
-      - A/B testing framework for recommendation strategies
-      - Integration with e-commerce platforms
-    `,
-    image: "/images/project-2.jpg",
-    tags: ["Machine Learning", "Recommendation Systems", "Python"],
-    demoUrl: "https://demo-url-2.com",
-    githubUrl: "https://github.com/yourusername/recommendation-system",
-    technologies: ["Python", "Scikit-learn", "Pandas", "NumPy", "Flask", "PostgreSQL"],
-    date: "March 2023",
-    videoUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ"
-  },
-  // Add more projects as needed
-];
-
-export default function ProjectDetail({ params }: { params: { id: string } }) {
-  const project = projects.find(p => p.id === parseInt(params.id));
+export default async function ProjectDetail({ params }: { params: { id: string } }) {
+  const projectId = parseInt(params.id);
+  const project = await getProjectById(projectId);
   
   if (!project) {
     notFound();
@@ -73,8 +23,9 @@ export default function ProjectDetail({ params }: { params: { id: string } }) {
         <Image 
           src={project.image} 
           alt={project.title}
-          fill
-          className="object-cover"
+          width={1200}
+          height={600}
+          className="object-cover w-full h-full"
         />
       </div>
       

@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "title": "AI-Powered Image Recognition",
+    "description": "A deep learning model for recognizing objects in images with high accuracy using convolutional neural networks.",
+    "fullDescription": "This project implements a state-of-the-art convolutional neural network for image recognition tasks. The model is trained on a large dataset of labeled images and can recognize objects across multiple categories with high accuracy.\n\nThe architecture uses a combination of convolutional layers, pooling layers, and fully connected layers to extract features from input images and classify them into predefined categories. Transfer learning techniques were applied by fine-tuning a pre-trained model on custom datasets to improve performance.\n\nKey features of this project include:\n- Real-time object detection with bounding boxes\n- Multi-class classification with confidence scores\n- Web interface for uploading and processing images\n- REST API for integration with other applications",
+    "image": "/images/project-1.jpg",
+    "tags": ["Deep Learning", "Computer Vision", "TensorFlow"],
+    "demoUrl": "https://demo-url-1.com",
+    "githubUrl": "https://github.com/yourusername/image-recognition",
+    "technologies": ["Python", "TensorFlow", "Keras", "OpenCV", "Flask"],
+    "date": "January 2023",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    "id": 2,
+    "title": "Recommendation System",
+    "description": "A personalized recommendation system for products using collaborative filtering and content-based approaches.",
+    "fullDescription": "This recommendation system combines collaborative filtering and content-based approaches to provide personalized product recommendations to users. The system analyzes user behavior, preferences, and product attributes to suggest items that users are likely to be interested in.\n\nThe collaborative filtering component identifies patterns in user behavior and recommends products based on the preferences of similar users. The content-based component analyzes product attributes and recommends items similar to those the user has shown interest in previously.\n\nKey features of this project include:\n- Hybrid recommendation approach (collaborative + content-based)\n- User similarity metrics based on purchase history\n- Product attribute analysis using NLP techniques\n- A/B testing framework for recommendation strategies\n- Integration with e-commerce platforms",
+    "image": "/images/project-2.jpg",
+    "tags": ["Machine Learning", "Recommendation Systems", "Python"],
+    "demoUrl": "https://demo-url-2.com",
+    "githubUrl": "https://github.com/yourusername/recommendation-system",
+    "technologies": ["Python", "Scikit-learn", "Pandas", "NumPy", "Flask", "PostgreSQL"],
+    "date": "March 2023",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    "id": 3,
+    "title": "Natural Language Processing Toolkit",
+    "description": "A comprehensive toolkit for various NLP tasks such as text classification, named entity recognition, and sentiment analysis.",
+    "fullDescription": "This NLP toolkit provides a unified interface for various natural language processing tasks. It integrates state-of-the-art transformer models with easy-to-use APIs for text classification, named entity recognition, sentiment analysis, and more.\n\nThe toolkit is designed to be modular and extensible, allowing researchers and developers to easily incorporate new models and techniques. It includes pre-trained models for common tasks as well as utilities for fine-tuning on custom datasets.\n\nKey features of this project include:\n- Unified interface for multiple NLP tasks\n- Support for transformer-based models (BERT, RoBERTa, T5, etc.)\n- Data preprocessing utilities for text data\n- Evaluation metrics and visualization tools\n- Deployment options for production environments",
+    "image": "/images/project-3.jpg",
+    "tags": ["NLP", "PyTorch", "Transformers"],
+    "demoUrl": "https://demo-url-3.com",
+    "githubUrl": "https://github.com/yourusername/nlp-toolkit",
+    "technologies": ["Python", "PyTorch", "Hugging Face Transformers", "NLTK", "FastAPI"],
+    "date": "June 2023",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    "id": 4,
+    "title": "Web Application for Data Visualization",
+    "description": "An interactive web application for visualizing complex datasets using modern visualization libraries.",
+    "fullDescription": "This web application allows users to upload, analyze, and visualize complex datasets through an intuitive interface. It leverages modern visualization libraries to create interactive and informative charts, graphs, and dashboards.\n\nThe application supports various data formats and includes preprocessing tools to clean and transform data before visualization. Users can customize visualizations and share them with others.\n\nKey features include:\n- Support for various data formats (CSV, JSON, Excel, etc.)\n- Data preprocessing and transformation tools\n- Interactive visualizations with filtering and drill-down capabilities\n- Dashboard creation and sharing\n- Export options for reports and presentations",
+    "image": "/images/project-4.jpg",
+    "tags": ["React", "D3.js", "Data Visualization"],
+    "demoUrl": "https://demo-url-4.com",
+    "githubUrl": "https://github.com/yourusername/data-viz-app",
+    "technologies": ["React", "D3.js", "TypeScript", "Node.js", "Express"],
+    "date": "August 2023",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    "id": 5,
+    "title": "Reinforcement Learning Environment",
+    "description": "A custom environment for training reinforcement learning agents to solve complex tasks.",
+    "fullDescription": "This project provides a modular and extensible environment for developing and evaluating reinforcement learning algorithms. It includes implementations of popular RL algorithms and benchmarks for comparing their performance.\n\nThe environment supports both discrete and continuous action spaces, allowing for a wide range of applications from game playing to robotic control. It also includes visualization tools for monitoring agent behavior and learning progress.\n\nKey features include:\n- Support for various types of environments (grid worlds, physics simulators, etc.)\n- Implementation of popular RL algorithms (DQN, PPO, SAC, etc.)\n- Benchmarking tools for algorithm comparison\n- Visualization of agent behavior and learning curves\n- Integration with existing RL frameworks and libraries",
+    "image": "/images/project-5.jpg",
+    "tags": ["Reinforcement Learning", "PyTorch", "OpenAI Gym"],
+    "demoUrl": "https://demo-url-5.com",
+    "githubUrl": "https://github.com/yourusername/rl-environment",
+    "technologies": ["Python", "PyTorch", "OpenAI Gym", "NumPy", "Matplotlib"],
+    "date": "October 2023",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  },
+  {
+    "id": 6,
+    "title": "Blockchain-based Supply Chain",
+    "description": "A decentralized application for tracking products across a supply chain using blockchain technology.",
+    "fullDescription": "This decentralized application (DApp) enables transparent and secure tracking of products throughout the supply chain. It uses blockchain technology to create an immutable record of product movements and transactions, ensuring traceability and authenticity.\n\nThe application includes smart contracts for managing supply chain operations such as product registration, transfers, and quality inspections. It also provides a user-friendly interface for stakeholders to interact with the system.\n\nKey features include:\n- Immutable record of product movements and transactions\n- Smart contracts for automating supply chain operations\n- QR code scanning for product verification\n- Dashboard for monitoring supply chain performance\n- Integration with IoT devices for real-time data collection",
+    "image": "/images/project-6.jpg",
+    "tags": ["Blockchain", "Ethereum", "Smart Contracts"],
+    "demoUrl": "https://demo-url-6.com",
+    "githubUrl": "https://github.com/yourusername/blockchain-supply-chain",
+    "technologies": ["Solidity", "Ethereum", "Web3.js", "React", "Node.js"],
+    "date": "December 2023",
+    "videoUrl": "https://www.youtube.com/embed/dQw4w9WgXcQ"
+  }
+] 

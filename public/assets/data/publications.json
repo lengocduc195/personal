@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "title": "Deep Learning for Computer Vision: A Comprehensive Survey",
+    "authors": ["Duc Le", "John Smith", "Jane Doe"],
+    "venue": "IEEE Transactions on Pattern Analysis and Machine Intelligence",
+    "year": 2023,
+    "abstract": "This paper presents a comprehensive survey of deep learning techniques in computer vision, covering recent advances in convolutional neural networks, transformers, and their applications in various vision tasks.",
+    "fullText": "This paper presents a comprehensive survey of deep learning techniques in computer vision, covering recent advances in convolutional neural networks, transformers, and their applications in various vision tasks. We discuss the evolution of deep learning architectures, from traditional CNNs to modern transformer-based models, and their impact on computer vision applications. The survey also includes detailed discussions on training strategies, optimization techniques, and future directions in the field.",
+    "tags": ["Deep Learning", "Computer Vision", "Survey"],
+    "doi": "10.1109/TPAMI.2023.1234567",
+    "link": "https://ieeexplore.ieee.org/document/1234567",
+    "citationCount": 42,
+    "citationFormat": "Le, D., Smith, J., & Doe, J. (2023). Deep Learning for Computer Vision: A Comprehensive Survey. IEEE Transactions on Pattern Analysis and Machine Intelligence, 45(3), 123-145.",
+    "videoUrl": "https://youtube.com/watch?v=example1",
+    "github": "https://github.com/lengocduc195/deep-learning-cv"
+  },
+  {
+    "id": 2,
+    "title": "Transformer-based Models for Natural Language Processing",
+    "authors": ["Duc Le", "Alice Johnson"],
+    "venue": "Proceedings of ACL 2024",
+    "year": 2024,
+    "abstract": "We present a novel approach to natural language processing using transformer-based models, focusing on their effectiveness in various NLP tasks and their computational efficiency.",
+    "fullText": "We present a novel approach to natural language processing using transformer-based models, focusing on their effectiveness in various NLP tasks and their computational efficiency. Our study investigates different transformer architectures and their performance on benchmark datasets, providing insights into model design choices and optimization strategies.",
+    "tags": ["Natural Language Processing", "Transformers", "Machine Learning"],
+    "doi": "10.18653/v1/2023.acl-long.123",
+    "link": "https://aclanthology.org/2023.acl-long.123",
+    "citationCount": 28,
+    "citationFormat": "Le, D., & Johnson, A. (2023). Transformer-based Models for Natural Language Processing. Proceedings of ACL 2023, 123-145.",
+    "videoUrl": "https://youtube.com/watch?v=example2",
+    "github": "https://github.com/lengocduc195/nlp-practice"
+  },
+  {
+    "id": 3,
+    "title": "Efficient Training of Large Language Models",
+    "authors": ["Duc Le", "Bob Wilson", "Carol Brown"],
+    "venue": "NeurIPS 2023",
+    "year": 2023,
+    "abstract": "This work introduces novel techniques for efficient training of large language models, reducing computational resources while maintaining model performance.",
+    "fullText": "This work introduces novel techniques for efficient training of large language models, reducing computational resources while maintaining model performance. We propose several optimization strategies that significantly reduce memory usage and training time without compromising model quality.",
+    "tags": ["Large Language Models", "Training", "Optimization"],
+    "doi": "10.48550/arXiv.2301.12345",
+    "link": "https://arxiv.org/abs/2301.12345",
+    "citationCount": 15,
+    "citationFormat": "Le, D., Wilson, B., & Brown, C. (2023). Efficient Training of Large Language Models. Advances in Neural Information Processing Systems, 36.",
+    "videoUrl": "https://youtube.com/watch?v=example3",
+    "github": "https://github.com/lengocduc195/personal"
+  }
+] 
