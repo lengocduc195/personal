@@ -1,0 +1,17 @@
+{
+  "/api/projects/[id]/route": "/api/projects/[id]",
+  "/api/projects/route": "/api/projects",
+  "/api/publications/route": "/api/publications",
+  "/api/publications/[id]/route": "/api/publications/[id]",
+  "/api/views/route": "/api/views",
+  "/favicon.ico/route": "/favicon.ico",
+  "/about/page": "/about",
+  "/page": "/",
+  "/projects/[id]/page": "/projects/[id]",
+  "/skills/page": "/skills",
+  "/_not-found/page": "/_not-found",
+  "/publications/[id]/page": "/publications/[id]",
+  "/projects/page": "/projects",
+  "/publications/page": "/publications",
+  "/social/page": "/social"
+}
