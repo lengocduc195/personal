@@ -29,10 +29,16 @@
   ],
   "hobby": [
     {
-      "title": "Mentor",
-      "organization": "AI Research Community",
-      "year": "2023",
-      "description": "Mentored junior researchers in machine learning projects"
+      "title": "Photography",
+      "organization": "Local Photography Club",
+      "year": "2020-Present",
+      "description": "Capture nature and urban landscapes"
+    },
+    {
+      "title": "Hiking",
+      "organization": "Mountain Explorers Group",
+      "year": "2021-Present",
+      "description": "Explore hiking trails and document the journey"
     }
   ]
 } 

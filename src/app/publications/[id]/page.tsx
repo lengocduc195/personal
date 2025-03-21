@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Publication } from '@/app/api/publications';
 import CitationSection from '@/app/components/CitationSection';
+import React from "react";
 
 export default function PublicationDetail({ params }: { params: { id: string } }) {
   const [publication, setPublication] = useState<Publication | null>(null);
@@ -13,8 +14,10 @@ export default function PublicationDetail({ params }: { params: { id: string } }
   useEffect(() => {
     async function loadPublication() {
       try {
-        const id = parseInt(params.id);
-        const response = await fetch(`/api/publications/${id}`);
+        // const id = parseInt(params.id);
+        // const response = await fetch('/api/projects');
+        const resolvedParams = await params;
+        const response = await fetch(`/api/publications/${resolvedParams.id}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch publication');
@@ -30,7 +33,7 @@ export default function PublicationDetail({ params }: { params: { id: string } }
     }
     
     loadPublication();
-  }, [params.id]);
+  }, [params]);
 
   if (loading) {
     return <div className="max-w-4xl mx-auto p-8 text-center">Loading publication...</div>;

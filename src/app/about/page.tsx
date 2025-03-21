@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaDownload, FaFileAlt, FaResearchgate, FaGoogle, FaOrcid } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTwitter, FaEnvelope, FaFileAlt, FaResearchgate, FaGoogle, FaOrcid } from 'react-icons/fa';
 
 interface AboutData {
   name: string;
@@ -216,13 +216,7 @@ export default function About() {
                 <a
                   href={aboutData.resume.url}
                   className="inline-flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors w-full justify-center"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const fullUrl = window.location.origin + aboutData.resume.url;
-                    window.open(fullUrl, '_blank');
-                  }}
+                  download
                 >
                   <FaFileAlt className="mr-2" />
                   Download Resume
@@ -230,13 +224,7 @@ export default function About() {
                 <a
                   href={aboutData.cv.url}
                   className="inline-flex items-center px-4 py-2 bg-gray-100 text-gray-800 rounded-lg hover:bg-gray-200 transition-colors w-full justify-center"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const fullUrl = window.location.origin + aboutData.cv.url;
-                    window.open(fullUrl, '_blank');
-                  }}
+                  download
                 >
                   <FaFileAlt className="mr-2" />
                   Download CV

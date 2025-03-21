@@ -7,7 +7,7 @@ interface CitationSectionProps {
 }
 
 export default function CitationSection({ citationFormat }: CitationSectionProps) {
-  const [copyStatus, setCopyStatus] = useState('');
+  // const [copyStatus, setCopyStatus] = useState('');
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {

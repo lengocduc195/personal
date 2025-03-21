@@ -1,23 +1,44 @@
 import { NextResponse } from 'next/server';
-import { getProjectById } from '@/app/api/projects';
+import fs from 'fs/promises';
+import path from 'path';
 
+interface Project {
+  id: string | number;
+  title: string;
+  description: string;
+  technologies: string[];
+  github?: string;
+  demo?: string;
+  image: string;
+}
+
+async function getProjects(): Promise<Project[]> {
+  const filePath = path.join(process.cwd(), 'public/assets/data/projects.json');
+  const fileContents = await fs.readFile(filePath, 'utf8');
+  return JSON.parse(fileContents);
+}
+
+// @ts-ignore - We need to ignore TS errors for Next.js 15 route handlers due to type complexity
 export async function GET(
-  request: Request,
+  _request: Request,
   { params }: { params: { id: string } }
 ) {
   try {
-    const id = parseInt(params.id);
+    const stringId = params.id;
+    const numericId = parseInt(stringId, 10);
+    const projects = await getProjects();
     
-    if (isNaN(id)) {
-      return NextResponse.json(
-        { error: 'Invalid project ID' },
-        { status: 400 }
-      );
-    }
-    
-    const project = await getProjectById(id);
+    // Find project by checking if numeric ID matches or string representation matches
+    const project = projects.find(p => {
+      if (typeof p.id === 'number') {
+        return p.id === numericId;
+      } else {
+        return p.id === stringId;
+      }
+    });
     
     if (!project) {
+      console.log(`Project not found for ID: ${stringId}, Numeric ID: ${numericId}`);
       return NextResponse.json(
         { error: 'Project not found' },
         { status: 404 }

@@ -1,5 +1,22 @@
 import { NextResponse } from 'next/server';
-import getProjects from '@/app/api/projects';
+import fs from 'fs/promises';
+import path from 'path';
+
+export interface Project {
+  id: string | number;
+  title: string;
+  description: string;
+  technologies: string[];
+  github?: string;
+  demo?: string;
+  image: string;
+}
+
+async function getProjects(): Promise<Project[]> {
+  const filePath = path.join(process.cwd(), 'public/assets/data/projects.json');
+  const fileContents = await fs.readFile(filePath, 'utf8');
+  return JSON.parse(fileContents);
+}
 
 export async function GET() {
   try {
